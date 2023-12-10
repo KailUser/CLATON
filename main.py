@@ -17,7 +17,7 @@ def fetch_version_info(url):
     return None
 
 # URL to the version.txt file
-version_url = 'https://github.com/username/repository/raw/main/version.txt'
+version_url = 'https://github.com/username/repository/raw/main/version'
 
 # Fetch version information
 version = fetch_version_info(version_url)
