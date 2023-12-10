@@ -1,4 +1,6 @@
 # CLATON
+![GitHub all releases](https://img.shields.io/github/downloads/KailUser/CLATON/total?style=flat-square)
+
 [Russian readme.md](https://github.com/KailUser/CLATON/blob/main/README_RU.md)
 ## Description
 CLATON is a Python application designed to quickly install custom firmware (CFW) on the Nintendo Switch console.
