@@ -3,6 +3,7 @@ import requests
 import zipfile
 import io
 import os
+import shutil
 
 def fetch_version_info(url):
     try:
@@ -29,8 +30,9 @@ if installed_version == version:
     layout = [
         [sg.Checkbox('Install hekate', enable_events=True, key='hekate', disabled=True, default=True)],
         [sg.Checkbox('Install kefir', enable_events=True, key='kefir')],
-        [sg.Checkbox('Install HBMenu', enable_events=True, key='hbmenu')],
+        [sg.Checkbox('Install HBMenu', enable_events=True, key='hbmenu', disabled=True)],
         [sg.Text('Enter device letter:'), sg.Input(key='device_letter')],
+        [sg.Text("Linux Distro (Core l4t):"), sg.DropDown(values=["Without Linux","Ubuntu", "Ubuntu Jammy", "Fedora", "Lakka"], key="l4t")],
         [sg.Button('Start install process')],
         [sg.ProgressBar(100, orientation='h', size=(20, 20), key='progressbar')]
     ]
@@ -75,26 +77,51 @@ if installed_version == version:
             print(f"Install Hekate: {hekate_installed}")
             print(f"Install Kefir: {kefir_installed}")
             print(f"Install HBMenu: {hbmenu_installed}")
-
-            if device_letter.upper() == 'C:':
-                sg.popup("This is a Windows System driver")
-            else:
-                # Replace with your GitHub release URL
-                release_url = 'https://github.com/CTCaer/hekate/releases/download/v6.0.7/hekate_ctcaer_6.0.7_Nyx_1.5.6.zip'
-
-                # Path to the device letter's directory
-                destination_folder = f"{device_letter}\\"
-
-                progress_bar = window['progressbar']
-
-                if download_and_extract_archive(release_url, destination_folder, progress_bar):
-                    sg.popup("Successful download of hekate!")
+            if hekate_installed == True:
+                if device_letter.upper() == 'C:':
+                    sg.popup("This is a Windows System driver")
                 else:
-                    sg.popup("Failed to download or extract hekate archive!")
+                    # Replace with your GitHub release URL
+                    release_url = 'https://github.com/CTCaer/hekate/releases/download/v6.0.7/hekate_ctcaer_6.0.7_Nyx_1.5.6.zip'
+
+                    # Path to the device letter's directory
+                    destination_folder = f"{device_letter}\\"
+                    progress_bar = window['progressbar']
+
+                    if download_and_extract_archive(release_url, destination_folder, progress_bar):
+                        f = open(destination_folder + '/bootloader/nyx.ini', mode="w")
+                        f.write("""[config]
+themebg=0
+themecolor=177
+entries5col=0
+timeoff=4650
+homescreen=0
+verification=1
+umsemmcrw=0
+jcdisable=0
+jcforceright=0
+bpmpclock=1
+
+""")
+                        f.close()
+                        url = "https://gcdnb.pbrd.co/images/DrsS9a9JAMt3.bmp?o=1"
+                        file_name = "background.bmp"
+                        res = requests.get(url, stream = True)
+                        if res.status_code == 200:
+                            with open(f"{destination_folder}/bootloader/res/" + file_name,'wb') as f:
+                                shutil.copyfileobj(res.raw, f)
+                                # print('Image sucessfully Downloaded: ',file_name)
+                        else:
+                            print('')
+
+
+                        sg.popup("Successful download of hekate!")
+                    else:
+                        sg.popup("Failed to download or extract hekate archive!")
 
             if kefir_installed == True:
                 if device_letter.upper() == 'C:':
-                    sg.popup("This is a Windows System driver")
+                    sg.popup("This is a Windows System driver!")
                 else:
                     # Replace with your GitHub release URL
                     release_url = 'https://codeberg.org/rashevskyv/kefir/releases/download/714/kefir714.zip'
@@ -105,6 +132,29 @@ if installed_version == version:
                     progress_bar = window['progressbar']
 
                     if download_and_extract_archive(release_url, destination_folder, progress_bar):
+                        f = open(destination_folder + '/bootloader/nyx.ini', mode="w")
+                        f.write("""[config]
+themebg=0
+themecolor=177
+entries5col=0
+timeoff=4650
+homescreen=0
+verification=1
+umsemmcrw=0
+jcdisable=0
+jcforceright=0
+bpmpclock=1
+
+""")
+                        f.close()
+                        url = "https://gcdnb.pbrd.co/images/DrsS9a9JAMt3.bmp?o=1"
+                        file_name = "background.bmp"
+                        res = requests.get(url, stream = True)
+                        if res.status_code == 200:
+                            with open(f"{destination_folder}/bootloader/res/" + file_name,'wb') as f:
+                                shutil.copyfileobj(res.raw, f)
+                                # print('Image sucessfully Downloaded: ',file_name)
+                            
                         sg.popup("Download and extraction successful!")
                     else:
                         sg.popup("Failed to download or extract archive!")
