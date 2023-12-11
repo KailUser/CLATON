@@ -1,4 +1,9 @@
 # CLATON
+![GitHub all releases](https://img.shields.io/github/downloads/KailUser/CLATON/total?style=flat-square)
+![GitHub forks](https://img.shields.io/github/forks/KailUser/CLATON?style=flat-square)
+![GitHub License](https://img.shields.io/github/license/KailUser/CLATON?style=flat-square)
+![GitHub repo size](https://img.shields.io/github/repo-size/KailUser/CLATON?style=flat-square)
+
 
 ## Описание
 CLATON - это приложение на Python, разработанное для быстрой установки кастомной прошивки (CFW) на консоль Nintendo Switch.
