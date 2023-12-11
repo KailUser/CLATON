@@ -3,11 +3,9 @@ import requests
 import zipfile
 import io
 import os
-<<<<<<< Updated upstream
-=======
 import shutil
 from ext.core import download_linux
->>>>>>> Stashed changes
+
 
 def fetch_version_info(url):
     try:
@@ -26,11 +24,8 @@ version_url = 'https://raw.githubusercontent.com/KailUser/CLATON/beta/version'
 
 # Fetch version information
 version = fetch_version_info(version_url)
-<<<<<<< Updated upstream
-installed_version = "0.0.1v-beta"
-=======
 installed_version = "0.0.2v-beta"
->>>>>>> Stashed changes
+
 
 
 
@@ -42,10 +37,7 @@ if installed_version == version or installed_version >= version:
         [sg.Checkbox('Install kefir', enable_events=True, key='kefir')],
         [sg.Checkbox('Install HBMenu', enable_events=True, key='hbmenu')],
         [sg.Text('Enter device letter:'), sg.Input(key='device_letter')],
-<<<<<<< Updated upstream
-=======
         [sg.Text("Linux Distro (Core l4t):"), sg.DropDown(values=["Without Linux","Ubuntu", "Ubuntu Jammy", "Fedora", "Lakka"], key="l4t", default_value="Without Linux")],
->>>>>>> Stashed changes
         [sg.Button('Start install process')],
         [sg.ProgressBar(100, orientation='h', size=(20, 20), key='progressbar')]
     ]
@@ -108,9 +100,8 @@ if installed_version == version or installed_version >= version:
                 if download_and_extract_archive(release_url, destination_folder, progress_bar):
                     sg.popup("Successful download of hekate!")
                 else:
-<<<<<<< Updated upstream
                     sg.popup("Failed to download or extract hekate archive!")
-=======
+
                     # Replace with your GitHub release URL
                     release_url = 'https://github.com/CTCaer/hekate/releases/download/v6.0.7/hekate_ctcaer_6.0.7_Nyx_1.5.6.zip'
 
@@ -146,8 +137,6 @@ bpmpclock=1
                         sg.popup("Successful download of hekate!")
                     else:
                         sg.popup("Failed to download or extract hekate archive!")
->>>>>>> Stashed changes
-
             if kefir_installed == True:
                 if device_letter.upper() == 'C:':
                     sg.popup("This is a Windows System driver")
