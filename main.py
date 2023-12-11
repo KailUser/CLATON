@@ -22,7 +22,7 @@ version_url = 'https://raw.githubusercontent.com/KailUser/CLATON/main/version'
 
 # Fetch version information
 version = fetch_version_info(version_url)
-installed_version = "0.0.1v-alpha"
+installed_version = "0.0.1v-oc"
 
 if installed_version == version:
     sg.theme("DarkPurple1")
